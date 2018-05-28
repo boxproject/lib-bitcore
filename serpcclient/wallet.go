@@ -51,8 +51,17 @@ func (c *Client) GetTransactionAsync(txHash *chainhash.Hash) FutureGetTransactio
 	if txHash != nil {
 		hash = txHash.String()
 	}
-
 	cmd := sebtcjson.NewGetTransactionCmd(hash, nil)
+	return c.sendCmd(cmd)
+}
+
+func (c *Client) GetTransactionAsyncPlus(txHash *chainhash.Hash) FutureGetTransactionResult {
+	hash := ""
+	if txHash != nil {
+		hash = txHash.String()
+	}
+	watchOnly := true
+	cmd := sebtcjson.NewGetTransactionCmd(hash, &watchOnly)
 	return c.sendCmd(cmd)
 }
 
@@ -61,6 +70,10 @@ func (c *Client) GetTransactionAsync(txHash *chainhash.Hash) FutureGetTransactio
 // See GetRawTransaction to return the raw transaction instead.
 func (c *Client) GetTransaction(txHash *chainhash.Hash) (*sebtcjson.GetTransactionResult, error) {
 	return c.GetTransactionAsync(txHash).Receive()
+}
+
+func (c *Client) GetTransactionPlus(txHash *chainhash.Hash) (*sebtcjson.GetTransactionResult, error) {
+	return c.GetTransactionAsyncPlus(txHash).Receive()
 }
 
 // FutureListTransactionsResult is a future promise to deliver the result of a
