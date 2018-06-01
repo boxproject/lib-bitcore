@@ -160,3 +160,10 @@ type GetBestBlockResult struct {
 	Hash   string `json:"hash"`
 	Height int32  `json:"height"`
 }
+
+// EstimateSmartFeeResult models the data returned from the estimatesmartfee command.
+type EstimateSmartFeeResult struct {
+		FeeRate *float64  `json:"feerate,omitempty"`
+		Errors  *[]string `json:"errors,omitempty"`
+		Blocks  int       `json:"blocks"`
+	}

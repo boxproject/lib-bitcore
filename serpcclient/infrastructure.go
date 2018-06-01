@@ -873,9 +873,13 @@ func (c *Client) sendCmd(cmd interface{}) chan *response {
 	id := c.NextID()
 	marshalledJSON, err := sebtcjson.MarshalCmd(id, cmd)
 
+
+
 	if err != nil {
 		return newFutureError(err)
 	}
+	//jstr := string(marshalledJSON)
+	//fmt.Println("jstr-->",jstr)
 
 	// Generate the request and send it along with a channel to respond on.
 	responseChan := make(chan *response, 1)

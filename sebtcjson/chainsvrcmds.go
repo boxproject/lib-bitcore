@@ -30,6 +30,9 @@ const (
 	ANOneTry AddNodeSubCmd = "onetry"
 )
 
+type EstimateMode string
+
+
 // AddNodeCmd defines the addnode JSON-RPC command.
 type AddNodeCmd struct {
 	Addr   string

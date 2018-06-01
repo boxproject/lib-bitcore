@@ -5,6 +5,31 @@
 
 package sebtcjson
 
+const (
+	// UnsetEstimeMode identifies the UNSET estimation strategy used by estimatesmartfee
+	UnsetEstimeMode EstimateMode = "UNSET"
+
+	// ConservativeEstimeMode identifies the CONSERVATIVE estimation strategy used by estimatesmartfee
+	ConservativeEstimeMode EstimateMode = "CONSERVATIVE"
+
+	// EconomicalEstimeMode identifies the ECONOMICAL estimation strategy used by estimatesmartfee
+	EconomicalEstimeMode EstimateMode = "ECONOMICAL"
+)
+
+type EstimateSmartFeeCmd struct {
+	ConfTarget   uint32       `json:"conf_target"`
+	EstimateMode EstimateMode `json:"estimate_mode,omitempty"`
+}
+
+// NewEstimateSmartFeeCmd returns a new instance which can be used to issue a
+// estimatesmartfee JSON-RPC command.
+func NewEstimateSmartFeeCmd(confTarget uint32, estimateMode EstimateMode) *EstimateSmartFeeCmd {
+	return &EstimateSmartFeeCmd{
+		ConfTarget:   confTarget,
+		EstimateMode: estimateMode,
+	}
+}
+
 // AddMultisigAddressCmd defines the addmutisigaddress JSON-RPC command.
 type AddMultisigAddressCmd struct {
 	NRequired int
@@ -673,6 +698,7 @@ func init() {
 	MustRegisterCmd("dumpprivkey", (*DumpPrivKeyCmd)(nil), flags)
 	MustRegisterCmd("encryptwallet", (*EncryptWalletCmd)(nil), flags)
 	MustRegisterCmd("estimatefee", (*EstimateFeeCmd)(nil), flags)
+	MustRegisterCmd("estimatesmartfee", (*EstimateSmartFeeCmd)(nil), flags)
 	MustRegisterCmd("estimatepriority", (*EstimatePriorityCmd)(nil), flags)
 	MustRegisterCmd("getaccount", (*GetAccountCmd)(nil), flags)
 	MustRegisterCmd("getaccountaddress", (*GetAccountAddressCmd)(nil), flags)
