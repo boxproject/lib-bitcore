@@ -735,4 +735,6 @@ func init() {
 	MustRegisterCmd("rescanblockchain", (*RescanBlockChainCmd)(nil), flags)
 
 	MustRegisterCmd("omni_getbalance", (*OmniGetbalanceCmd)(nil), flags)
+	MustRegisterCmd("omni_gettransaction", (*OmniGetTransactionCmd)(nil), flags)
+	MustRegisterCmd("omni_listtransactions", (*OmniListTransactionsCmd)(nil), flags)
 }
